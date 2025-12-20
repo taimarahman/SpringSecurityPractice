@@ -1,5 +1,6 @@
 package com.project.SpringSecurityEx.service;
 
+import com.project.SpringSecurityEx.model.UserPrincipal;
 import com.project.SpringSecurityEx.model.Users;
 import com.project.SpringSecurityEx.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class MyUserDetailsService implements UserDetailsService {
 
         Users user = userRepo.findByUsername(username);
 
-        return null;
+        if(user == null){
+            System.out.println("User not found");
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return new UserPrincipal(user);
     }
 }
