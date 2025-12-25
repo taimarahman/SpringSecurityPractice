@@ -14,7 +14,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public Users register(@RequestBody Users user){
+    public Users register(@RequestBody Users user) {
         return userService.register(user);
+    }
+
+    @PostMapping(value = "/login", consumes = "application/json")
+    public String login(@RequestBody Users user) {
+        return userService.verify(user);
     }
 }
