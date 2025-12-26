@@ -48,7 +48,7 @@ public class JWTService {
                 .compact();
     }
 
-    private Key getKey() {
+    private SecretKey getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
@@ -65,7 +65,7 @@ public class JWTService {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .verifyWith((SecretKey) getKey())
+                .verifyWith(getKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
